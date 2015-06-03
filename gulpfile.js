@@ -2,11 +2,11 @@ var gulp = require('gulp');
 var serve = require('gulp-serve');
 var concatCss = require('gulp-concat-css');
 var autoprefixer = require('gulp-autoprefixer');
-var requirejsOptimize = require('gulp-requirejs-optimize');
+var rjs = require('gulp-requirejs');
 var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
 
-gulp.task('default', ['css', 'serve-dev']);
+gulp.task('default', ['serve']);
 
 gulp.task('build', ['scripts', 'css', 'copystatics']);
 
@@ -14,47 +14,44 @@ gulp.task('serve-dev', serve({
     port: 9000
 }));
 
+gulp.task('serve-prod', serve({
+    root: 'out',
+    port: 8080
+}));
+
+gulp.task('serve', ['build', 'serve-prod']);
 
 gulp.task('css', function () {
     return gulp.src('src/app/**/*.css')
         .pipe(concatCss("/static_files/styles/bundle.css"))
-        //.pipe(autoprefixer({
-        //    browsers: ['last 2 versions'],
-        //    cascade: false
-        //}))
         .pipe(gulp.dest('src/app/'));
 });
 
 gulp.task('scripts', function () {
-    return gulp.src('src/app/bootstrap.js')
-        .pipe(requirejsOptimize({
-            "paths": {
-                "jquery": "../../bower_components/jquery/dist/jquery",
-                "underscore": "../../bower_components/underscore/underscore",
-                "bootstrapjs": "../../bower_components/bootstrap/dist/js/bootstrap",
-                "backbone": "../../bower_components/backbone/backbone",
-                "backbone.wreqr": "../../bower_components/backbone.wreqr/lib/backbone.wreqr",
-                "backbone.statemanager": "../../bower_components/backbone.statemanager/backbone.statemanager",
-                "text": "../../bower_components/requirejs-text/text",
-                "handlebars": "../../bower_components/handlebars/handlebars"
-            },
-            "shim": {
-                "handlebars": {
-                    "exports": "Handlebars"
-                },
-                "bootstrapjs": {
-                    "deps": ["jquery"]
-                }
-            },
-            "deps": ["bootstrapjs"]
-        }))
-        .pipe(gulp.dest('out/js'));
+    return rjs({
+        baseUrl: 'src/app',
+        name: 'main',
+        out: 'main.js',
+        "paths": {
+            "jquery": "empty:",
+            "underscore": "empty:",
+            "bootstrapjs": "empty:",
+            "backbone": "empty:",
+            "backbone.wreqr": "empty:",
+            "backbone.statemanager": "empty:",
+            "text": "../../bower_components/requirejs-text/text",
+            "handlebars": "empty:"
+        },
+        "optimize": "uglify2"
+    }).pipe(gulp.dest('out/app'));
 });
 
-gulp.task('copystatics', function() {
+gulp.task('copystatics', function () {
+    gulp.src('bower_components/**')
+        .pipe(gulp.dest('out/bower_components'));
     gulp.src('src/app/static_files/**')
-        .pipe(gulp.dest('out/static_files'));
-    gulp.src('src/index.html')
+        .pipe(gulp.dest('out/app/static_files'));
+    return gulp.src('src/index.html')
         .pipe(gulp.dest('out'));
 });
 
@@ -86,5 +83,3 @@ gulp.task('tdd', function (done) {
         configFile: __dirname + '/test/karma.conf.js'
     }, done);
 });
-
-gulp.task('default', ['tdd']);

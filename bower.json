@@ -18,7 +18,6 @@
     "tests"
   ],
   "dependencies": {
-    "brain": "*",
     "bootstrap": "*",
     "requirejs": "*",
     "requirejs-text": "*",
