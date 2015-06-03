@@ -10,6 +10,7 @@
     "gulp-requirejs-optimize": "*",
     "gulp-jasmine": "*",
     "jasmine-reporters": "*",
+    "coveralls": "*",
     "karma": "*",
     "karma-script-launcher": "*",
     "karma-chrome-launcher": "*",

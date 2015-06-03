@@ -26,7 +26,7 @@ module.exports = function (config) {
             dir: 'test-reports',
             reporters: [
                 {type: 'html', subdir: 'report-html'},
-                {type: 'cobertura', subdir: '.', file: '../cobertura.txt'}
+                {type: 'lcovonly', subdir: '.', file: 'lcov.info'}
             ]
         },
 
