@@ -1,6 +1,7 @@
 {
   "name": "application-name",
   "version": "0.0.1",
+  "repository": "https://github.com/nikitadyumin",
   "devDependencies": {
     "gulp": "*",
     "gulp-serve": "*",
