@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/static_files/styles/bundle.css">
+
+    <!--<style>-->
+        <!--.wrapper {-->
+            <!--display: table;-->
+            <!--padding: 0;-->
+            <!--width: 100%;-->
+            <!--height: 100%;-->
+            <!--position: absolute;-->
+        <!--}-->
+        <!--.container {-->
+            <!--display: table-cell;-->
+            <!--vertical-align: middle;-->
+        <!--}-->
+        <!--.canvas-container {-->
+            <!--position: relative;-->
+            <!--max-width: 1024px;-->
+            <!--min-width: 320px;-->
+            <!--margin: 0 auto;-->
+        <!--}-->
+        <!--#field {-->
+            <!--width: 100%;-->
+            <!--height: auto;-->
+            <!--background-color: pink;-->
+        <!--}-->
+        <!--</style>-->
+</head>
+<body>
+<header></header>
+<section id="application" >
+    <canvas id="field" width="100%" height="100%"></canvas>
+</section>
+<footer></footer>
+<div class="modal fade" id="modal"></div>
+</body>
+
+<script>
+    var requirejs = {
+        "paths": {
+            "brain": "../../bower_components/brain/lib/brain-0.6.3.min",
+            "jquery": "../../bower_components/jquery/dist/jquery",
+            "underscore": "../../bower_components/underscore/underscore",
+            "bootstrapjs": "../../bower_components/bootstrap/dist/js/bootstrap",
+            "backbone": "../../bower_components/backbone/backbone",
+            "backbone.wreqr": "../../bower_components/backbone.wreqr/lib/backbone.wreqr",
+            "backbone.statemanager": "../../bower_components/backbone.statemanager/backbone.statemanager",
+            "text": "../../bower_components/requirejs-text/text",
+            "handlebars": "../../bower_components/handlebars/handlebars"
+        },
+        "shim": {
+            "handlebars": {
+                "exports": "Handlebars"
+            },
+            "brain": {
+                "exports": "brain"
+            },
+            "bootstrapjs": {
+                "deps": ["jquery"]
+            }
+        },
+        "deps": ["bootstrapjs"]
+    };
+</script>
+<script src="../bower_components/requirejs/require.js" data-main="app/bootstrap.js"></script>
+</html>

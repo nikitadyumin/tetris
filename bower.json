@@ -1,0 +1,35 @@
+{
+  "name": "tetris",
+  "version": "0.0.0",
+  "authors": [
+    "Nikita Dyumin"
+  ],
+  "main": "app.js",
+  "moduleType": [
+    "amd"
+  ],
+  "private": true,
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "brain": "*",
+    "bootstrap": "*",
+    "requirejs": "*",
+    "requirejs-text": "*",
+    "underscore": "*",
+    "jquery": "*",
+    "backbone": "*",
+    "backbone.statemanager": "*",
+    "backbone.wreqr": "*",
+    "handlebars":"*"
+  },
+  "devDependencies": {
+    "jasmine": "*"
+  }
+}

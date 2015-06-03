@@ -1,0 +1,24 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-serve": "*",
+    "gulp-concat-css": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-requirejs-optimize": "*",
+    "gulp-jasmine": "*",
+    "jasmine-reporters": "*",
+    "karma": "*",
+    "karma-script-launcher": "*",
+    "karma-chrome-launcher": "*",
+    "karma-phantomjs-launcher": "*",
+    "karma-junit-reporter": "*",
+    "karma-html2js-preprocessor": "*",
+    "karma-jasmine": "*",
+    "karma-jasmine-ajax": "*",
+    "karma-requirejs": "*",
+    "karma-js-coverage": "*",
+    "bower": "*"
+  }
+}
