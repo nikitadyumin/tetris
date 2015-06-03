@@ -12,10 +12,10 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'app/**/*.js': 'coverage'
+            'src/**/*.js': ['coverage']
         },
 
-        reporters: ['progress', 'coverage', 'dots', 'junit'],
+        reporters: ['progress', 'coverage', 'junit'],
 
         junitReporter: {
             outputFile: 'test-reports/test-results.xml',
