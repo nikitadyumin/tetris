@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var serve = require('gulp-serve');
 var concatCss = require('gulp-concat-css');
+var clean = require('gulp-clean');
 var autoprefixer = require('gulp-autoprefixer');
 var rjs = require('gulp-requirejs');
 var jasmine = require('gulp-jasmine');
@@ -22,8 +23,14 @@ gulp.task('serve-prod', serve({
 gulp.task('serve', ['build', 'serve-prod']);
 
 gulp.task('css', function () {
+    gulp.src('src/app/static_files/**', {read: false})
+        .pipe(clean());
     return gulp.src('src/app/**/*.css')
         .pipe(concatCss("/static_files/styles/bundle.css"))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(gulp.dest('src/app/'));
 });
 
