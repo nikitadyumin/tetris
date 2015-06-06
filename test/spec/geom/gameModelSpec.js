@@ -15,6 +15,7 @@ define(function (require) {
         it("should create a field of a given size", function () {
             var model = new Model(21,11);
             expect(model.fieldMap.length).toBe(21);
+            model.dispose();
         });
         it("should return a copy of a field", function () {
             var model = new Model(21,11);
@@ -31,11 +32,13 @@ define(function (require) {
             var block = new Block(new Shape(2), null);
             model.setActiveBlock(block);
             expect(model.getActiveBlock()).toBe(block);
+            var failure = jasmine.createSpy('failure');
             try {
                 model.setActiveBlock(123);
             } catch(e) {
-
+                failure();
             }
+            expect(failure).toHaveBeenCalled();
             expect(model.getActiveBlock()).toBe(block);
         });
         it("should remove full rows filling the field with empty ones", function () {
@@ -68,6 +71,42 @@ define(function (require) {
             spyOn(model, 'removeFullRows');
             model.addBlock(block);
             expect(model.removeFullRows).toHaveBeenCalled();
+        });
+        it("should be able to check if an external set of cells collides with a field at a given coordinates", function () {
+            /**
+             * @type {GameModel}
+             */
+            var model = new Model(5, 5);
+            model.fieldMap[2][2] = 1;
+            var block = new Block(new Shape(2), 5);
+            block.shape.setCells([[2, 2],[2, 2]]);
+            expect(model.checkCollision(block.shape.getCells(), 1, 1)).toBeTruthy();
+            expect(model.checkCollision(block.shape.getCells(), 2, 2)).toBeTruthy();
+            expect(model.checkCollision(block.shape.getCells(), 0, 0)).toBeFalsy();
+            expect(model.checkCollision(block.shape.getCells(), 3, 3)).toBeFalsy();
+        });
+        it("should be able to add a block to a field permanently using a block color and throw exception if it is not successful", function () {
+            /**
+             * @type {GameModel}
+             */
+            var model = new Model(5, 5);
+            model.fieldMap[2][2] = 1;
+            var COLOR = 5;
+            var block = new Block(new Shape(2), COLOR);
+            block.shape.setCells([[2, 2],[2, 2]]);
+            block.positionX = 0;
+            block.positionY = 0;
+            model.addBlock(block);
+            expect(model.fieldMap[0][0]).toBe(COLOR);
+            expect(model.fieldMap[1][1]).toBe(COLOR);
+            expect(model.fieldMap[2][2]).toBe(1);
+            var failure = jasmine.createSpy('failure');
+            try {
+                model.addBlock(block);
+            } catch(e) {
+                failure();
+            }
+            expect(failure).toHaveBeenCalled();
         });
     });
 
