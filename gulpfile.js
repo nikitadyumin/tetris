@@ -22,9 +22,12 @@ gulp.task('serve-prod', serve({
 
 gulp.task('serve', ['build', 'serve-prod']);
 
-gulp.task('css', function () {
-    gulp.src('src/app/static_files/**', {read: false})
+gulp.task('clean', function () {
+    return gulp.src('src/app/static_files/**', {read: false})
         .pipe(clean());
+});
+
+gulp.task('css', ['clean'], function () {
     return gulp.src('src/app/**/*.css')
         .pipe(concatCss("/static_files/styles/bundle.css"))
         .pipe(autoprefixer({
@@ -53,7 +56,7 @@ gulp.task('scripts', function () {
     }).pipe(gulp.dest('out/app'));
 });
 
-gulp.task('copystatics', function () {
+gulp.task('copystatics', ['css'], function () {
     gulp.src('bower_components/**')
         .pipe(gulp.dest('out/bower_components'));
     gulp.src('src/app/static_files/**')
