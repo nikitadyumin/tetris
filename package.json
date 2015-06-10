@@ -6,6 +6,7 @@
     "gulp": "*",
     "gulp-serve": "*",
     "gulp-concat-css": "*",
+    "gulp-less": "*",
     "gulp-clean": "*",
     "gulp-autoprefixer": "*",
     "gulp-requirejs": "*",

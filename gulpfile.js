@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var serve = require('gulp-serve');
+var less = require('gulp-less');
+var path = require('path');
 var concatCss = require('gulp-concat-css');
 var clean = require('gulp-clean');
 var autoprefixer = require('gulp-autoprefixer');
@@ -9,7 +11,7 @@ var reporters = require('jasmine-reporters');
 
 gulp.task('default', ['serve']);
 
-gulp.task('build', ['scripts', 'css', 'copystatics']);
+gulp.task('build', ['scripts', 'less', 'copystatics']);
 
 gulp.task('serve-dev', serve({
     port: 9000
@@ -27,8 +29,11 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-gulp.task('css', ['clean'], function () {
-    return gulp.src('src/app/**/*.css')
+gulp.task('less', function () {
+    return gulp.src('src/app/**/*.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
         .pipe(concatCss("/static_files/styles/bundle.css"))
         .pipe(autoprefixer({
             browsers: ['last 2 versions'],
@@ -56,7 +61,7 @@ gulp.task('scripts', function () {
     }).pipe(gulp.dest('out/app'));
 });
 
-gulp.task('copystatics', ['css'], function () {
+gulp.task('copystatics', ['less'], function () {
     gulp.src('bower_components/**')
         .pipe(gulp.dest('out/bower_components'));
     gulp.src('src/app/static_files/**')
