@@ -3,10 +3,12 @@
  * @exports UIModule
  */
 define(function(require) {
+    require('./styles/field.less');
+
     var Wreqr = require('backbone.wreqr');
     var globalBus = Wreqr.radio.channel('global');
 
-    var UIController = require('game_ui/UIController');
+    var UIController = require('./UIController');
 
     return function(app) {
         var controller = new UIController(app);

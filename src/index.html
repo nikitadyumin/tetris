@@ -3,8 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>tetris</title>
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="app/static_files/styles/bundle.css">
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
 <header></header>
@@ -15,31 +14,6 @@
 <div class="modal fade" id="modal"></div>
 </body>
 
-<script>
-    var requirejs = {
-        "paths": {
-            "jquery": "../../bower_components/jquery/dist/jquery",
-            "underscore": "../../bower_components/underscore/underscore",
-            "bootstrapjs": "../../bower_components/bootstrap/dist/js/bootstrap",
-            "backbone": "../../bower_components/backbone/backbone",
-            "backbone.wreqr": "../../bower_components/backbone.wreqr/lib/backbone.wreqr",
-            "backbone.statemanager": "../../bower_components/backbone.statemanager/backbone.statemanager",
-            "text": "../../bower_components/requirejs-text/text",
-            "handlebars": "../../bower_components/handlebars/handlebars"
-        },
-        "shim": {
-            "handlebars": {
-                "exports": "Handlebars"
-            },
-            "brain": {
-                "exports": "brain"
-            },
-            "bootstrapjs": {
-                "deps": ["jquery"]
-            }
-        },
-        "deps": ["bootstrapjs"]
-    };
-</script>
-<script src="../bower_components/requirejs/require.js" data-main="app/main.js"></script>
+<script src="lib.js"></script>
+<script src="bundle.js"></script>
 </html>

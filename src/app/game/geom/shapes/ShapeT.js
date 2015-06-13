@@ -3,7 +3,7 @@
  * @exports ShapeT
  */
 define(function(require) {
-    var Shape = require('game/geom/shapes/Shape');
+    var Shape = require('./Shape');
     var SIZE = 3;
 
     /**

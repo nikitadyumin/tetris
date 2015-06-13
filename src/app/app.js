@@ -3,11 +3,15 @@
  * @exports TetrisApplication
  */
 define(function(require) {
+    require('./main.less');
+    require('jquery');
+    //require('bootstrap');
+
     var Backbone = require('backbone');
     var _ = require('underscore');
 
-    var UIModule = require('game_ui/UIModule');
-    var MenuModule = require('menu/MenuModule');
+    var UIModule = require('./game_ui/UIModule');
+    var MenuModule = require('./menu/MenuModule');
 
     /**
      * @name TetrisApplication

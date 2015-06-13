@@ -8,9 +8,9 @@ define(function (require) {
     var Backbone = require('backbone'),
         $ = require('jquery');
 
-    var Settings = require('game/Settings'),
-        UISettings = require('game_ui/UISettings'),
-        GameOverView = require('game_ui/views/GameOverView');
+    var Settings = require('../../game/Settings'),
+        UISettings = require('../UISettings'),
+        GameOverView = require('./GameOverView');
 
     var FieldView = Backbone.View.extend(/** @lends FieldView.prototype */{
         el: 'canvas#field',

@@ -10,7 +10,7 @@ define(function (require) {
         Wreqr = require('backbone.wreqr'),
         $ = require('jquery');
 
-    var menu_template = require('text!menu/templates/menu.hbs');
+    var menu_template = require('raw!./templates/menu.hbs');
     var globalBus = Wreqr.radio.channel('global');
 
     var MenuView = Backbone.View.extend(/** @lends MenuView.prototype */{

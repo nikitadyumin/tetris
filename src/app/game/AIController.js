@@ -7,10 +7,10 @@ define(function (require) {
     var gameBus = Wreqr.radio.channel('game');
     var globalBus = Wreqr.radio.channel('global');
 
-    var Shape = require('game/geom/shapes/Shape'),
-        Block = require('game/geom/Block'),
-        Field = require('game/GameModel'),
-        Color = require('colors/Color');
+    var Shape = require('./geom/shapes/Shape'),
+        Block = require('./geom/Block'),
+        Field = require('./GameModel'),
+        Color = require('../colors/Color');
 
     function isDefined(cell) {
         return !!cell;

@@ -9,8 +9,8 @@ define(function (require) {
 
     var gameBus = Wreqr.radio.channel('game');
 
-    var Shape = require('game/geom/shapes/Shape'),
-        Block = require('game/geom/Block');
+    var Shape = require('./geom/shapes/Shape'),
+        Block = require('./geom/Block');
 
     /**
      * @name GameModel

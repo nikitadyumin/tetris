@@ -7,11 +7,11 @@ define(function (require) {
     var globalBus = Wreqr.radio.channel('global');
     var gameBus = Wreqr.radio.channel('game');
 
-    var Model = require('game/GameModel'),
-        Block = require('game/geom/Block'),
-        Settings = require('game/Settings'),
-        Color = require('colors/Color'),
-        Factory = require('game/geom/ShapeFactory');
+    var Model = require('./GameModel'),
+        Block = require('./geom/Block'),
+        Settings = require('./Settings'),
+        Color = require('../colors/Color'),
+        Factory = require('./geom/ShapeFactory');
 
     /**
      * @name GameController

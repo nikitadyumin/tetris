@@ -1,73 +1,93 @@
+var Promise = require('promise');
+
 var gulp = require('gulp');
+//var gutil = require('gulp-util');
+var webpack = require("webpack");
+var wpstream = require("webpack-stream");
 var serve = require('gulp-serve');
-var less = require('gulp-less');
+//var less = require('gulp-less');
 var path = require('path');
 var concatCss = require('gulp-concat-css');
 var clean = require('gulp-clean');
 var autoprefixer = require('gulp-autoprefixer');
-var rjs = require('gulp-requirejs');
 var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
 
 gulp.task('default', ['serve']);
 
-gulp.task('build', ['scripts', 'less', 'copystatics']);
+var plugins = require("gulp-load-plugins")({
+    pattern: ['gulp-*', 'gulp.*', 'main-bower-files'],
+    replaceString: /\bgulp[\-.]/
+});
+
+var dest = 'dist/';
+
+gulp.task('js', function () {
+    return gulp.src(plugins.mainBowerFiles())
+            .pipe(plugins.filter('*.js'))
+            .pipe(plugins.concat('lib.js'))
+            .pipe(plugins.uglify())
+            .pipe(gulp.dest(dest));
+});
+
+gulp.task('css', function () {
+    return gulp.src(plugins.mainBowerFiles())
+        .pipe(plugins.filter('*.css'))
+        .pipe(plugins.concat('main.css'))
+        .pipe(gulp.dest(dest));
+});
+
+gulp.task('wp', function () {
+    return gulp.src('src/app/main.js')
+        .pipe(wpstream({
+            resolve: {
+                root: [path.join(__dirname, "bower_components")]
+            },
+            plugins: [
+                new webpack.ResolverPlugin(
+                    new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"])
+                )
+            ],
+            module: {
+                loaders: [
+                    {test: /\.css$/, loaders: ["style", "css"]},
+                    {test: /\.less$/, loaders: ["style", "css", "less"]}
+                ]
+            },
+            output: {
+                filename: 'bundle.js'
+            }
+        }))
+        .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('build', ['clean'], function() {
+    return gulp.run('copy');
+});
+
+gulp.task('copy', ['wp', 'js', 'css', 'static']);
 
 gulp.task('serve-dev', serve({
     port: 9000
 }));
 
 gulp.task('serve-prod', serve({
-    root: 'out',
-    port: 8080
+    root: 'dist',
+    port: 8081
 }));
 
-gulp.task('serve', ['build', 'serve-prod']);
+gulp.task('serve', ['build'], function() {
+    return gulp.run('serve-prod');
+});
 
 gulp.task('clean', function () {
-    return gulp.src('src/app/static_files/**', {read: false})
-        .pipe(clean());
+    return gulp.src(dest, {read: false})
+            .pipe(clean());
 });
 
-gulp.task('less', function () {
-    return gulp.src('src/app/**/*.less')
-        .pipe(less({
-            paths: [ path.join(__dirname, 'less', 'includes') ]
-        }))
-        .pipe(concatCss("/static_files/styles/bundle.css"))
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions'],
-            cascade: false
-        }))
-        .pipe(gulp.dest('src/app/'));
-});
-
-gulp.task('scripts', function () {
-    return rjs({
-        baseUrl: 'src/app',
-        name: 'main',
-        out: 'main.js',
-        "paths": {
-            "jquery": "empty:",
-            "underscore": "empty:",
-            "bootstrapjs": "empty:",
-            "backbone": "empty:",
-            "backbone.wreqr": "empty:",
-            "backbone.statemanager": "empty:",
-            "text": "../../bower_components/requirejs-text/text",
-            "handlebars": "empty:"
-        },
-        "optimize": "uglify2"
-    }).pipe(gulp.dest('out/app'));
-});
-
-gulp.task('copystatics', ['less'], function () {
-    gulp.src('bower_components/**')
-        .pipe(gulp.dest('out/bower_components'));
-    gulp.src('src/app/static_files/**')
-        .pipe(gulp.dest('out/app/static_files'));
+gulp.task('static', ['clean'], function () {
     return gulp.src('src/index.html')
-        .pipe(gulp.dest('out'));
+        .pipe(gulp.dest(dest));
 });
 
 gulp.task('test', function () {

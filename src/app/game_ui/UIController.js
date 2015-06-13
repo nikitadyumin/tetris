@@ -3,13 +3,14 @@
  */
 define(function (require) {
     var Wreqr = require('backbone.wreqr');
+    var Backbone = require('backbone');
     var gameBus = Wreqr.radio.channel('game');
 
-    var FieldView = require('game_ui/views/FieldView'),
-        GameOverView = require('game_ui/views/GameOverView'),
-        GameController = require('game/GameController'),
-        AI = require('game/AIController'),
-        KeyboardController = require('input/KeyboardController');
+    var FieldView = require('./views/FieldView'),
+        GameOverView = require('./views/GameOverView'),
+        GameController = require('../game/GameController'),
+        AI = require('../game/AIController'),
+        KeyboardController = require('../input/KeyboardController');
 
     var FPS = 30,
         UPDATE_FRAME = (1000 / FPS) | 0;

@@ -3,12 +3,12 @@
  *
  */
 define(function(require) {
-    var ShapeI = require('game/geom/shapes/ShapeI'),
-        ShapeJ = require('game/geom/shapes/ShapeJ'),
-        ShapeL = require('game/geom/shapes/ShapeL'),
-        ShapeO = require('game/geom/shapes/ShapeO'),
-        ShapeT = require('game/geom/shapes/ShapeT'),
-        ShapeZ = require('game/geom/shapes/ShapeZ');
+    var ShapeI = require('./shapes/ShapeI'),
+        ShapeJ = require('./shapes/ShapeJ'),
+        ShapeL = require('./shapes/ShapeL'),
+        ShapeO = require('./shapes/ShapeO'),
+        ShapeT = require('./shapes/ShapeT'),
+        ShapeZ = require('./shapes/ShapeZ');
 
     var constructors = [ShapeI, ShapeJ, ShapeL, ShapeO, ShapeT, ShapeZ];
 

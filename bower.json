@@ -4,7 +4,7 @@
   "authors": [
     "Nikita Dyumin"
   ],
-  "main": "app.js",
+  "main": "main.js",
   "moduleType": [
     "amd"
   ],
@@ -18,14 +18,12 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "*",
-    "requirejs": "*",
-    "requirejs-text": "*",
     "underscore": "*",
     "jquery": "*",
     "backbone": "*",
     "backbone.statemanager": "*",
     "backbone.wreqr": "*",
+    "bootstrap": "*",
     "handlebars":"*"
   },
   "devDependencies": {
